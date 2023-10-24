@@ -21,3 +21,9 @@ find ./wp-content/ -maxdepth 2 -type d -mtime -10 | sed 1d | cut -d\/ -f1-4 | eg
 
 mv wp-config.php SUBFOLDER/wp-config.php.bak-$(date +%s)
 
+<!-- Show DB version -->
+wp db query "SHOW GLOBAL VARIABLES LIKE 'version';"
+
+<!-- check debug.log file for fatal, parse, or syntax errors -->
+grep -E 'PHP (Fatal|Parse|syntax) error' /path/to/wp-content/debug.log | sort | uniq -c | sort -rn | head -25
+
