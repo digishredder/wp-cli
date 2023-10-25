@@ -1,29 +1,29 @@
-<!-- force wordpress version change -->
+### force wordpress version change ###
 
 wp core update --version=6.2 --skip-plugins --skip-themes --force
 
-<!-- create admin user -->
+### create admin user ###
 
 wp user create USERNAME EMAIL --role=administrator --skip-plugins --skip-themes
 
-<!-- Search Replace WP CLI -->
+### Search Replace WP CLI ###
 
 wp search-replace 'URL' 'URL'
  --precise --all-tables --skip-columns=guid,user_email --report-changed-only --dry-run
 
-<!-- use to see what was modified (themes and plugins) in the past day with this find sed cut command -->
+### use to see what was modified (themes and plugins) in the past day with this find sed cut command ###
 
 find ./wp-content/ -maxdepth 2 -type d -mtime -10 | sed 1d | cut -d\/ -f1-4 | egrep '(plugins|themes)/'
 
 find ./wp-content/ -maxdepth 2 -type d -mtime -10 | sed 1d | cut -d\/ -f1-4 | egrep '(uploads)/'
 
-<!-- move wp-config.php to sub-folder  (use cp for copying) -->
+### move wp-config.php to sub-folder  (use cp for copying) ###
 
 mv wp-config.php SUBFOLDER/wp-config.php.bak-$(date +%s)
 
-<!-- Show DB version -->
+### Show DB version ###
 wp db query "SHOW GLOBAL VARIABLES LIKE 'version';"
 
-<!-- check debug.log file for fatal, parse, or syntax errors -->
+### check debug.log file for fatal, parse, or syntax errors ###
 grep -E 'PHP (Fatal|Parse|syntax) error' /path/to/wp-content/debug.log | sort | uniq -c | sort -rn | head -25
 
